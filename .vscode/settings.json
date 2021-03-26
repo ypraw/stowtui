@@ -1,0 +1,12 @@
+{
+    "python.formatting.provider": "yapf",
+    "python.terminal.activateEnvironment": true,
+    "python.testing.pytestEnabled": false,
+    "python.linting.enabled": true,
+    "python.linting.mypyPath": "mypy",
+    "python.linting.mypyEnabled": true,
+    "python.formatting.yapfArgs": [
+        "--style",
+        "{based_on_style: google, column_limit: 80 indent_width: 4, }"
+    ],
+}
