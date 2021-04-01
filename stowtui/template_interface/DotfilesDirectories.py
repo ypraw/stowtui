@@ -4,8 +4,6 @@ import sys
 from typing import List, Dict
 from stowtui_core import StowtuiCore
 
-# from stowtui.stowtui_core import StowtuiCore
-
 
 class DotfilesDirectoriesList(npyscreen.ActionForm):
     """
@@ -24,8 +22,6 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
     def __init__(self, dotfiles_path=None, **kwargs):
         self.settings = locals()
         self.settings.update(kwargs)
-        # del self.settings['self']
-        # del self.settings['args']
         self.settings['dotfiles_path'] = dotfiles_path
         super(DotfilesDirectoriesList, self).__init__(**kwargs)
 
@@ -52,14 +48,6 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
         return dirsName
 
     def create(self):
-        # dirs_value = self._get_list_name(self.settings['dotfiles_path'])
-
-        # for dirName in dirs_value:
-        #     self.resCheckbox[dir] = self.add(npyscreen.Checkbox,
-        #                                      name=dirName,
-        #                                      rely=1,
-        #                                      relx=5,
-        #                                      max_width=25)
         self.res = self.add(npyscreen.TitleMultiSelect,
                             max_height=-2,
                             name="List Directories Name",
