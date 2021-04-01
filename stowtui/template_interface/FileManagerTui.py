@@ -1,6 +1,8 @@
 import npyscreen
 import os
 import sys
+import time
+from .DotfilesDirectories import DotfilesDirectoriesList
 
 
 class FileManagerTUI(npyscreen.ActionFormMinimal):
@@ -15,13 +17,6 @@ class FileManagerTUI(npyscreen.ActionFormMinimal):
     This UI will be rendered the first time the program is run.
     """
 
-    def __init__(self, *args, **keywords):
-        super(FileManagerTUI, self).__init__(*args, **keywords)
-
-    def activate(self):
-        self.edit()
-        self.parentApp.setNextForm("directory_list")
-
     @staticmethod
     def exit(*args, **kwargs):
         os.system('reset')
@@ -33,7 +28,6 @@ class FileManagerTUI(npyscreen.ActionFormMinimal):
 
     def create(self):
         self.add_handlers({'^Q': FileManagerTUI.exit})
-
         self.add(npyscreen.Textfield,
                  value='NOTES:',
                  editable=False,
@@ -72,7 +66,15 @@ class FileManagerTUI(npyscreen.ActionFormMinimal):
                                            Label=True)
 
     def on_ok(self):
-        result_folder_form = self.parentApp.getForm("directory_list")
-        result_folder_form.target_directory_result.value = self.target_directory.value
-        result_folder_form.dotfiles_directory_result.value = self.dotfiles_directory.value
-        self.parentApp.switchForm("directory_list")
+        if self.dotfiles_directory.value is None:
+            npyscreen.notify('Dotfiles Directory Cannot Be NUll', title='Error')
+            time.sleep(1)
+            self.parentApp.setNextForm("MAIN")
+
+        else:
+            result_args = {'dotfiles_path': self.dotfiles_directory.value}
+            self.parentApp.addForm("directorieslist",
+                                   DotfilesDirectoriesList,
+                                   name="List of Directories",
+                                   **result_args)
+            self.parentApp.switchForm("directorieslist")
