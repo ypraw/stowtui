@@ -1,21 +1,20 @@
-"""
----------
-Dotfiles Directories List UI
----------
-
-Dotfiles Directories list module.
-
-ui Template for generated results from the list directories of
-Dotfiles Directory
-
-"""
-
 import npyscreen
 from typing import List
-from stowtui.stowtui_core import StowtuiCore
+from stowtui_core import StowtuiCore
 
 
 class DotfilesDirectoriesList(npyscreen.ActionForm):
+    """
+    ---------
+    Dotfiles Directories List UI
+    ---------
+
+    Dotfiles Directories list module.
+
+    ui Template for generated results from the list directories of
+    Dotfiles Directory
+
+    """
 
     @staticmethod
     def _get_list_name(pathDir: str):
@@ -30,17 +29,6 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
         dirsName: List[str] = StowtuiCore.getAllDir(pathDir)
         return dirsName
 
-    # def create(self):
-    #     self.dotfiles_directory = self.add(npyscreen.TitleMultiSelect,
-    #                                        max_height=-2,
-    #                                        value=[
-    #                                            1,
-    #                                        ],
-    #                                        name="List Directories Name",
-    #                                        values=self._get_list_name(
-    #                                            self.value[1]),
-    #                                        scroll_exit=True)
-
     def activate(self):
         self.edit()
 
@@ -52,7 +40,7 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
                 1,
             ],
             name="List Directories Name",
-            values=self._get_list_name(self.dotfiles_directory_result.value),
+            # values=self._get_list_name(self.dotfiles_directory_result.value),
             scroll_exit=True)
 
     def on_ok(self):
