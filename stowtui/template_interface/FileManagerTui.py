@@ -37,22 +37,19 @@ class FileManagerTUI(npyscreen.ActionFormMinimal):
 
         self.add(
             npyscreen.Textfield,
-            value=
-            'Target Directory is target to DIR (default is parent of stow dir) <ex, /home/$USER>',
+            value='Target Directory is target to DIR (default is parent of stow dir) <ex, /home/$USER>',
             editable=False,
             color='CONTROL')
 
         self.add(
             npyscreen.Textfield,
-            value=
-            'Dotfiles Directory is Dotfiles config directory <ex, /home/$USER/dotfiles>',
+            value='Dotfiles Directory is Dotfiles config directory <ex, /home/$USER/dotfiles>',
             editable=False,
             color='CONTROL')
 
         self.add(
             npyscreen.Textfield,
-            value=
-            'set Dotfiles Directory path returned list of all directories config <ex, /home/$USER/dotfiles/zsh>',
+            value='set Dotfiles Directory path returned list of all directories config <ex, /home/$USER/dotfiles/zsh>',
             editable=False,
             color='CONTROL')
 
@@ -67,7 +64,8 @@ class FileManagerTUI(npyscreen.ActionFormMinimal):
 
     def on_ok(self):
         if self.dotfiles_directory.value is None:
-            npyscreen.notify('Dotfiles Directory Cannot Be NUll', title='Error')
+            npyscreen.notify(
+                'Dotfiles Directory Cannot Be NUll', title='Error')
             time.sleep(1)
             self.parentApp.setNextForm("MAIN")
 
