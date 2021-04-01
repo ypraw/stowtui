@@ -4,20 +4,24 @@
 import npyscreen
 from typing import List
 
-from stowtui.template_interface.DotfilesDirectories import DotfilesDirectoriesList
-from stowtui.template_interface.FileManagerTui import FileManagerTUI
+from template_interface.DotfilesDirectories import DotfilesDirectoriesList
+from template_interface.FileManagerTui import FileManagerTUI
 
 
 class StowApp(npyscreen.NPSAppManaged):
 
     def onStart(self):
-        self.addForm("MAIN", FileManagerTUI, name="Welcome to STOW TUI")
+        quit_s = '\t' * 4 + '^Q to quit'
+
+        self.addForm(
+            "MAIN",
+            FileManagerTUI,
+            name='Stow ' + quit_s,
+        )
         self.addForm("directory_list",
                      DotfilesDirectoriesList,
-                     name="List Of Dotfiles")
+                     name="List Of Dotfiles" + quit_s)
 
 
 if __name__ == "__main__":
-    # App = StowApp()
-    # App.run()
     npyscreen.wrapper(StowApp().run())
