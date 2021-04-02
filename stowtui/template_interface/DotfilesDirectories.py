@@ -26,7 +26,7 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
         super(DotfilesDirectoriesList, self).__init__(**kwargs)
 
     @staticmethod
-    def exit(**kwargs):
+    def exit(*args, **kwargs):
         os.system('reset')
         os.system('stty sane')
         try:
@@ -48,6 +48,73 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
         return dirsName
 
     def create(self):
+        prev_s = '\t' * 4 + '^W to back previous menu'
+        quit_s = '\t' * 4 + '^Q to quit'
+        self.add_handlers({'^Q': self.exit})
+
+        self.add_handlers({'^W':   self.on_cancel})
+
+        self.add(npyscreen.Textfield,
+                 value='NOTES:',
+                 editable=False,
+                 color='CONTROL')
+
+        self.nextrely += 1
+
+        self.add(
+            npyscreen.Textfield,
+            value='Make Sure that the folders is your dotfiles config',
+            editable=False,
+            color='CONTROL')
+
+        self.add(
+            npyscreen.Textfield,
+            value='An Exampale, your config is ~/dotfiles/zsh which contain, ',
+            editable=False,
+            color='CONTROL')
+
+        self.add(
+            npyscreen.Textfield,
+            value='-/zsh',
+            editable=False,
+            color='CONTROL')
+
+        self.add(
+            npyscreen.Textfield,
+            value='\t - .zshrc',
+            editable=False,
+            color='CONTROL')
+
+        self.nextrely += 1
+
+        self.add(
+            npyscreen.Textfield,
+            value='IF Not you can switch to previous menu',
+            editable=False,
+            color='CONTROL')
+
+        self.add(
+            npyscreen.Textfield,
+            value='by pressing button cancel or use shortcut ^W',
+            editable=False,
+            color='CONTROL')
+
+        self.nextrely += 3
+
+        self.add(
+            npyscreen.Textfield,
+            value='Your Current Path : ',
+            editable=False,
+        )
+
+        self.add(
+            npyscreen.Textfield,
+            value=self.settings['dotfiles_path'],
+            editable=False,
+        )
+
+        self.nextrely += 1
+
         self.res = self.add(npyscreen.TitleMultiSelect,
                             max_height=-2,
                             name="List Directories Name",
@@ -55,7 +122,7 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
                                 self.settings['dotfiles_path']),
                             scroll_exit=True)
 
-    def on_cancel(self):
+    def on_cancel(self, *args, **kwargs):
         self.parentApp.switchFormPrevious()
 
     def on_ok(self):
