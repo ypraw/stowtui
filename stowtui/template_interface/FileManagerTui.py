@@ -10,9 +10,7 @@ class FileManagerTUI(npyscreen.ActionFormMinimal):
     ---------
     File Manager UI
     ---------
-
     File Manager module.
-
     UI Template for File Manager target directory and dotfiles directory.
     This UI will be rendered the first time the program is run.
     """
@@ -63,6 +61,8 @@ class FileManagerTUI(npyscreen.ActionFormMinimal):
                                            Label=True)
 
     def on_ok(self):
+        prev_s = '\t' * 4 + '^W to back previous menu'
+        quit_s = '\t' * 4 + '^Q to quit'
         if self.dotfiles_directory.value is None:
             npyscreen.notify(
                 'Dotfiles Directory Cannot Be NUll', title='Error')
@@ -73,6 +73,6 @@ class FileManagerTUI(npyscreen.ActionFormMinimal):
             result_args = {'dotfiles_path': self.dotfiles_directory.value}
             self.parentApp.addForm("directorieslist",
                                    DotfilesDirectoriesList,
-                                   name="List of Directories",
+                                   name="List of Directories" + quit_s + prev_s,
                                    **result_args)
             self.parentApp.switchForm("directorieslist")
