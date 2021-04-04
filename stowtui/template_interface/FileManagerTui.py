@@ -5,7 +5,7 @@ import time
 from .DotfilesDirectories import DotfilesDirectoriesList
 
 
-class FileManagerTUI(npyscreen.ActionFormMinimal):
+class FileManagerTUI(npyscreen.ActionForm):
     """
     ---------
     File Manager UI
