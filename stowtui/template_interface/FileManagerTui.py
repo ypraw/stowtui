@@ -57,10 +57,10 @@ class FileManagerTUI(npyscreen.ActionForm):
 
         self.nextrely += 3
 
-        self.target_directory = self.add(npyscreen.TitleFilenameCombo,
+        self.target_directory = self.add(npyscreen.TitleFilename,
                                          name="Target Directory:",
                                          label=True)
-        self.dotfiles_directory = self.add(npyscreen.TitleFilenameCombo,
+        self.dotfiles_directory = self.add(npyscreen.TitleFilename,
                                            name="Dotfiles Directory:",
                                            Label=True)
 
