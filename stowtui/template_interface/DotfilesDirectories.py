@@ -17,6 +17,8 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
     Dotfiles Directory
 
     """
+    CANCEL_BUTTON_TEXT = 'Previous Menu'
+
     resCheckbox: Dict[str, str] = {}
 
     def __init__(self, dotfiles_path=None, **kwargs):
