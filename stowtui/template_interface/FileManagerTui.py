@@ -76,3 +76,9 @@ class FileManagerTUI(npyscreen.ActionForm):
                                    name="List of Directories" + quit_s + prev_s,
                                    **result_args)
             self.parentApp.switchForm("directorieslist")
+
+    def on_cancel(self):
+        npyscreen.notify(
+            'Thanks for used this apps, bye !!!', title='Exit')
+        time.sleep(1)
+        self.exit()
