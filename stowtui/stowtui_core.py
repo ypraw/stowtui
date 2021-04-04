@@ -60,7 +60,8 @@ class StowtuiCore:
                 # if keyName[0] == 'neofetch':
                 targetExecute = "cd {} && stow -R -t {} {}".format(
                     path_dotfiles, path_dir, keyName)
-                subprocess.run([targetExecute], shell=True)
+                subprocess.run([targetExecute], shell=True,
+                               stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
             status = (True, 'Successfully restored')
         except Exception as e:
             pass
