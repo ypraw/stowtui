@@ -135,7 +135,7 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
             until the thread is finished
             """
             thrd.start()
-            message_info = "Restoring ..."
+            message_info = "Restoring..."
             npyscreen.notify_wait(message_info, title=title)
             while thrd.is_alive():
                 time.sleep(1)
@@ -147,3 +147,6 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
         thrd = threading.Thread(
             target=StowtuiCore.stowExecute, kwargs={'dirs_name': selectable_values, 'path_dir': target_dir, 'path_dotfiles': dotfiles_dir})
         popup(thrd, 'Restoring dotfiles')
+        npyscreen.notify_confirm('Done restored dotfiles with folder {}'.format(
+            selectable_values), title='Restored Dotfiles')
+        self.parentApp.switchFormPrevious()
