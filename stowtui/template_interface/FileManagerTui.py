@@ -77,7 +77,9 @@ class FileManagerTUI(npyscreen.ActionForm):
             self.parentApp.setNextForm("MAIN")
 
         else:
-            result_args = {'dotfiles_path': self.dotfiles_directory.value}
+            result_args = {'dotfiles_path': self.dotfiles_directory.value,
+                           'target_path': self.target_directory.value}
+
             self.parentApp.addForm("directorieslist",
                                    DotfilesDirectoriesList,
                                    name="List of Directories" + quit_s + prev_s,
