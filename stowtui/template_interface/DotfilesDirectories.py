@@ -148,5 +148,5 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
             target=StowtuiCore.stowExecute, kwargs={'dirs_name': selectable_values, 'path_dir': target_dir, 'path_dotfiles': dotfiles_dir})
         popup(thrd, 'Restoring dotfiles')
         npyscreen.notify_confirm('Done restored dotfiles with folder {}'.format(
-            selectable_values), title='Restored Dotfiles')
+            str(selectable_values)[1:-1]), title='Restored Dotfiles')
         self.parentApp.switchFormPrevious()
