@@ -14,6 +14,10 @@ class FileManagerTUI(npyscreen.ActionForm):
     UI Template for File Manager target directory and dotfiles directory.
     This UI will be rendered the first time the program is run.
     """
+    OK_BUTTON_TEXT = 'Process'
+    CANCEL_BUTTON_TEXT = 'Exit'
+    CANCEL_BUTTON_BR_OFFSET = (1, 15)
+    OK_BUTTON_BR_OFFSET = (1, 6)
 
     @staticmethod
     def exit(*args, **kwargs):
@@ -78,7 +82,4 @@ class FileManagerTUI(npyscreen.ActionForm):
             self.parentApp.switchForm("directorieslist")
 
     def on_cancel(self):
-        npyscreen.notify(
-            'Thanks for used this apps, bye !!!', title='Exit')
-        time.sleep(1)
         self.exit()
