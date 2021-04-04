@@ -2,6 +2,7 @@ import npyscreen
 import os
 import sys
 import time
+from pathlib import Path
 from .DotfilesDirectories import DotfilesDirectoriesList
 
 
@@ -18,6 +19,8 @@ class FileManagerTUI(npyscreen.ActionForm):
     CANCEL_BUTTON_TEXT = 'Exit'
     CANCEL_BUTTON_BR_OFFSET = (1, 15)
     OK_BUTTON_BR_OFFSET = (1, 6)
+    USER_HOME = str(Path.home())
+    CURRENT_DIR = os.getcwd()
 
     @staticmethod
     def exit(*args, **kwargs):
@@ -59,10 +62,10 @@ class FileManagerTUI(npyscreen.ActionForm):
 
         self.target_directory = self.add(npyscreen.TitleFilename,
                                          name="Target Directory:",
-                                         label=True)
+                                         label=True, value=self.USER_HOME + '/')
         self.dotfiles_directory = self.add(npyscreen.TitleFilename,
                                            name="Dotfiles Directory:",
-                                           Label=True)
+                                           Label=True, value=self.CURRENT_DIR + '/')
 
     def on_ok(self):
         prev_s = '\t' * 4 + '^W to back previous menu'
