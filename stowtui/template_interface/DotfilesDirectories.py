@@ -1,6 +1,8 @@
 import npyscreen
+import time
 import os
 import sys
+import threading
 from typing import List, Dict
 from stowtui_core import StowtuiCore
 
@@ -21,10 +23,11 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
 
     resCheckbox: Dict[str, str] = {}
 
-    def __init__(self, dotfiles_path=None, **kwargs):
+    def __init__(self, dotfiles_path=None, target_path=None, **kwargs):
         self.settings = locals()
         self.settings.update(kwargs)
         self.settings['dotfiles_path'] = dotfiles_path
+        self.settings['target_path'] = target_path
         super(DotfilesDirectoriesList, self).__init__(**kwargs)
 
     @staticmethod
@@ -35,19 +38,6 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
             sys.exit(0)
         except SystemExit:  # pragma: no cover
             os._exit(0)
-
-    @staticmethod
-    def _get_list_name(pathDir: str):
-        """This is static method for get all list name on target directory
-
-        Args:
-            pathDir (str): path to directory location, exp: ~/mydotfiles
-
-        Returns:
-            (List[str]): [list directory name from target directory]"""
-
-        dirsName: List[str] = StowtuiCore.getAllDir(pathDir)
-        return dirsName
 
     def create(self):
         prev_s = '\t' * 4 + '^W to back previous menu'
@@ -114,18 +104,46 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
             value=self.settings['dotfiles_path'],
             editable=False,
         )
+        self.add(
+            npyscreen.Textfield,
+            value='Your Target Path : ',
+            editable=False,
+        )
+
+        self.add(
+            npyscreen.Textfield,
+            value=self.settings['target_path'],
+            editable=False,
+        )
 
         self.nextrely += 1
 
         self.res = self.add(npyscreen.TitleMultiSelect,
                             max_height=-2,
                             name="List Directories Name",
-                            values=self._get_list_name(
+                            values=StowtuiCore.getAllDir(
                                 self.settings['dotfiles_path']),
                             scroll_exit=True)
 
-    def on_cancel(self, *args, **kwargs):
+    def on_cancel(self, **kwargs):
         self.parentApp.switchFormPrevious()
 
-    def on_ok(self):
-        self.exit()
+    def on_ok(self, **kwargs):
+        def popup(thrd, title):
+            """
+            Start the thread and display a popup of the plugin being cloned
+            until the thread is finished
+            """
+            thrd.start()
+            message_info = "Restoring ..."
+            npyscreen.notify_wait(message_info, title=title)
+            while thrd.is_alive():
+                time.sleep(1)
+            return
+
+        target_dir = self.settings['target_path']
+        dotfiles_dir = self.settings['dotfiles_path']
+        selectable_values = self.res.get_selected_objects()
+        thrd = threading.Thread(
+            target=StowtuiCore.stowExecute, kwargs={'dirs_name': selectable_values, 'path_dir': target_dir, 'path_dotfiles': dotfiles_dir})
+        popup(thrd, 'Restoring dotfiles')
