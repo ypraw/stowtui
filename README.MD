@@ -15,7 +15,7 @@ git clone https://github.com/ypraw/stowtui.git
 then run the installer script,
 
 ```bash
-source ./installer
+source ./install.sh
 ```
 
 ## AUTHOR
