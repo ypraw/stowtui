@@ -40,27 +40,32 @@ class StowtuiCore:
             name for name in workdir(path_to_dir) if
             not name.startswith('.') and pth.isdir(pth.join(path_to_dir, name))
         ]
-        # it = iter(get_only_directory)
-        # list_of_tuple: List[Tuple[str, str]] = [(value, value) for value in it]
+
         return get_only_directory
 
     @staticmethod
-    def stowExecute(dirsName: List[str], path_DIR):
+    def stowExecute(dirs_name: List[str] = [None], path_dir=None, path_dotfiles=None):
         """Static Method for executing stow function
-
         Args:
-            dirsName (List[str]): [description]
-            path_DIR ([type]): [description]
+            dirs_name (List[str]): List of dotfiles directories
+            path_dir ([type]): path to target DIR, ex, $HOME
+            path_dotfiles: Path of dotfiles config, ex ~/mydotfiles/
 
         Returns:
             [type]: [Executing stow on shell]
         """
-        for keyName in dirsName:
-            # if keyName[0] == 'neofetch':
-            targetExecute = "cd {} && stow -R -t ~/ {}".format(
-                path_DIR, keyName)
-            subprocess.run([targetExecute], shell=True)
-        return True
+        status = (True, None)
+        try:
+            for keyName in dirs_name:
+                # if keyName[0] == 'neofetch':
+                targetExecute = "cd {} && stow -R -t {} {}".format(
+                    path_dotfiles, path_dir, keyName)
+                subprocess.run([targetExecute], shell=True)
+            status = (True, 'Successfully restored')
+        except Exception as e:
+            pass
+
+        return status
 
 
 if __name__ == '__main__':
@@ -68,4 +73,3 @@ if __name__ == '__main__':
     testing = StowtuiCore()
     TestingDir = testing.getAllDir(path_DIR)
     print(TestingDir)
-    # print(testing.stowExecute(TestingDir, path_DIR))

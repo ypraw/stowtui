@@ -7,7 +7,7 @@
     "python.linting.mypyEnabled": true,
     "python.formatting.yapfArgs": [
         "--style",
-        "{based_on_style: google, column_limit: 80 indent_width: 4, }"
+        "{based_on_style: google, column_limit: 80, indent_width: 4, spaces_before_comment = 4, split_before_logical_operator = true}"
     ],
     "python.linting.mypyArgs": [
         "--config-file ../stowtui/mypy.ini"
