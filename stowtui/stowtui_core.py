@@ -44,7 +44,7 @@ class StowtuiCore:
         return get_only_directory
 
     @staticmethod
-    def stowExecute(dirs_name: List[str] = [None], path_dir=None, path_dotfiles=None):
+    def stowExecute(dirs_name: List[str] = [], path_dir: str = None, path_dotfiles: str = None):
         """Static Method for executing stow function
         Args:
             dirs_name (List[str]): List of dotfiles directories
@@ -54,7 +54,7 @@ class StowtuiCore:
         Returns:
             [type]: [Executing stow on shell]
         """
-        status = (True, None)
+        status: Tuple[bool, str] = (bool, str)
         try:
             for keyName in dirs_name:
                 # if keyName[0] == 'neofetch':
@@ -64,8 +64,8 @@ class StowtuiCore:
                                stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
             status = (True, 'Successfully restored')
         except Exception as e:
-            pass
-
+            # pass
+            status = (True, 'Errors Detected')
         return status
 
 
