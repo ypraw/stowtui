@@ -17,17 +17,24 @@ _stow tui is a Terminal User Interface Program for [GNU STOW](https://www.gnu.or
 
 ## HOW TO INSTALL
 
-Clone this repository,
+* if you want to edit or modified source code
 
-```bash
-git clone https://github.com/ypraw/stowtui.git
-```
+    Clone this repository,
 
-then run the installer script,
+    ```bash
+    git clone https://github.com/ypraw/stowtui.git
+    ```
 
-```bash
-source ./install.sh
-```
+    then run the installer script,
+
+    ```bash
+    source ./install.sh
+    ```
+
+* or via pip
+    ```bash
+    pip install stowtui
+    ```
 
 ## AUTHOR
 
