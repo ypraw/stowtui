@@ -21,4 +21,4 @@ sleep 1.5
 echo -ne '.........   (99%)\r'
 printf "Please wait, running program"
 sleep 1
-python stowtui/stowApp.py
+python stowtui/__main__.py
