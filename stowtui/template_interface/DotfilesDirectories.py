@@ -42,9 +42,9 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
     def create(self):
         prev_s = '\t' * 4 + '^W to back previous menu'
         quit_s = '\t' * 4 + '^Q to quit'
-        self.add_handlers({'^Q': self.exit})
 
-        self.add_handlers({'^W':   self.on_cancel})
+        self.add_handlers({'^Q': self.exit})
+        self.add_handlers({'^W': self.on_cancel})
 
         self.add(npyscreen.Textfield,
                  value='NOTES:',
@@ -125,7 +125,7 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
                                 self.settings['dotfiles_path']),
                             scroll_exit=True)
 
-    def on_cancel(self, **kwargs):
+    def on_cancel(self, *args, **kwargs):
         self.parentApp.switchFormPrevious()
 
     def on_ok(self, **kwargs):
