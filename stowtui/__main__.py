@@ -1,5 +1,3 @@
-# from stowtui.stowApp import StowApp
-# from stowApp.StowApp import StowApp
 from stowtui.stowApp import StowApp
 
 
