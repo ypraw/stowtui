@@ -8,13 +8,11 @@
 </p>
 
 
-
-
-
 ## DESCRIPTION
 
 _stow tui is a Terminal User Interface Program for [GNU STOW](https://www.gnu.org/software/stow/)_
 
+> _**this is beta versions, with basic function of stow (currently added Restow Packages), updates and other features will continue to be provided**_
 ## HOW TO INSTALL
 
 * if you want to edit or modify source code
@@ -40,6 +38,20 @@ _stow tui is a Terminal User Interface Program for [GNU STOW](https://www.gnu.or
 
 * [Yunindyo Prabowo](https://github.com/ypraw)
 
+## CONTRIBUTING
+
+* Fork the repo
+* Create your feature branch (git checkout -b feature/fooBar)
+* Commit your changes (git commit -am 'Add some fooBar')
+* Push to the branch (git push origin feature/fooBar)
+* Create a new Pull Request
+
+## TO DO
+
+* [x] Restow Packages
+* [ ] Delete a package from the target tree
+* [ ] sudo action if any special access to root tree
+* [ ] complete manual instructions
 ## LICENSE
 
 * [npyscreen](https://github.com/npcole/npyscreen) Copyright (c) 2004--2009, Nicholas P. S. Cole (n@npcole.com)
