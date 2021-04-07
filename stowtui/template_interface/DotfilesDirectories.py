@@ -4,7 +4,7 @@ import os
 import sys
 import threading
 from typing import List, Dict
-from stowtui.stowtui_core import StowtuiCore
+from stowtui.stowtui_core.stowtui_core import StowtuiCore
 
 
 class DotfilesDirectoriesList(npyscreen.ActionForm):
@@ -144,9 +144,13 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
         target_dir = self.settings['target_path']
         dotfiles_dir = self.settings['dotfiles_path']
         selectable_values = self.res.get_selected_objects()
-        thrd = threading.Thread(
-            target=StowtuiCore.stowExecute, kwargs={'dirs_name': selectable_values, 'path_dir': target_dir, 'path_dotfiles': dotfiles_dir})
-        popup(thrd, 'Restoring dotfiles')
-        npyscreen.notify_confirm('Done restored dotfiles with folder {}'.format(
-            str(selectable_values)[1:-1]), title='Restored Dotfiles')
-        self.parentApp.switchFormPrevious()
+
+        if (selectable_values is None):
+            npyscreen.notify_confirm('Target Configs can not be null, please checklist at least one, or back to previous menu',title='ERROR Checklist is null', form_color='CRITICAL')
+        else:
+            thrd = threading.Thread(
+                target=StowtuiCore.stowExecute, kwargs={'dirs_name': selectable_values, 'path_dir': target_dir, 'path_dotfiles': dotfiles_dir})
+            popup(thrd, 'Restoring dotfiles')
+            npyscreen.notify_confirm('Done restored dotfiles with folder {}'.format(
+                str(selectable_values)[1:-1]), title='Restored Dotfiles')
+            self.parentApp.switchFormPrevious()
