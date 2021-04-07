@@ -8,7 +8,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 setup(
     name="stowtui",
-    version="0.1.9",
+    version="0.1.10",
     # Get the description from second line & remove `*` character
     description="stow tui is a Terminal User Interface Program for GNU STOW",
     long_description=long_description,
