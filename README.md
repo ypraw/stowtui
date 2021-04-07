@@ -17,7 +17,7 @@ _stow tui is a Terminal User Interface Program for [GNU STOW](https://www.gnu.or
 
 ## HOW TO INSTALL
 
-* if you want to edit or modified source code
+* if you want to edit or modify source code
 
     Clone this repository,
 
