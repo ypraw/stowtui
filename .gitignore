@@ -2,3 +2,5 @@
 .mypy_cache
 __pycache__
 stowtui_venv
+dist
+stowtui.egg-info
