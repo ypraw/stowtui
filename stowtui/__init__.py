@@ -1,1 +1,1 @@
-__all__ = ['stowtui_core', 'stowApp', ]
+# __all__ = ["stowApp", "stowtui_core", "__main__"]

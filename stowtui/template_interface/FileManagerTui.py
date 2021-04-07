@@ -3,7 +3,7 @@ import os
 import sys
 import time
 from pathlib import Path
-from .DotfilesDirectories import DotfilesDirectoriesList
+from stowtui.template_interface.DotfilesDirectories import DotfilesDirectoriesList
 
 
 class FileManagerTUI(npyscreen.ActionForm):

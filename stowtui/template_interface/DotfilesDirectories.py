@@ -4,7 +4,7 @@ import os
 import sys
 import threading
 from typing import List, Dict
-from stowtui_core import StowtuiCore
+from stowtui.stowtui_core import StowtuiCore
 
 
 class DotfilesDirectoriesList(npyscreen.ActionForm):

@@ -4,7 +4,7 @@
 import npyscreen
 from typing import List
 
-from template_interface.FileManagerTui import FileManagerTUI
+from stowtui.template_interface.FileManagerTui import FileManagerTUI
 
 
 class StowApp(npyscreen.NPSAppManaged):
@@ -17,7 +17,3 @@ class StowApp(npyscreen.NPSAppManaged):
             FileManagerTUI,
             name='Stow ' + quit_s,
         )
-
-
-if __name__ == "__main__":
-    npyscreen.wrapper(StowApp().run())
