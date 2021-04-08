@@ -31,8 +31,7 @@ class FileManagerTUI(npyscreen.ActionForm):
     ABOUT_VERSION = Version()
     ABOUT_EMAIL = Email()
     ABOUT_NAME = app_name()
-    ABOUT_MESSAGES = 'AUTHOR\t' + ABOUT_AUTHOR + '\nVERSION\t' \
-                        + ABOUT_VERSION + '\nEMAIL\t' + ABOUT_EMAIL
+    ABOUT_MESSAGES = 'AUTHOR\t' + ABOUT_AUTHOR + '\nVERSION\t' + ABOUT_VERSION + '\nEMAIL\t' + ABOUT_EMAIL
 
     @staticmethod
     def exit(*args, **kwargs):

@@ -13,9 +13,9 @@ class StowApp(npyscreen.NPSAppManaged):
 
     def onStart(self):
 
-        quit_s = '\t' * 3 + '^Q to quit'
+        quit_s = '\t' * 2 + '^Q to quit'
         version = Version()
-        name = app_name().capitalize
+        name = app_name().capitalize()
 
         self.addForm(
             "MAIN",
