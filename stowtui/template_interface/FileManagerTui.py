@@ -5,6 +5,10 @@ import time
 from pathlib import Path
 from stowtui.template_interface.DotfilesDirectories import DotfilesDirectoriesList
 from stowtui.stowtui_core.stowtui_core import StowtuiCore
+from stowtui.helpers.meta import Version
+from stowtui.helpers.meta import Author
+from stowtui.helpers.meta import Email
+from stowtui.helpers.meta import app_name
 
 
 class FileManagerTUI(npyscreen.ActionForm):
@@ -23,6 +27,13 @@ class FileManagerTUI(npyscreen.ActionForm):
     USER_HOME = str(Path.home())
     CURRENT_DIR = os.getcwd()
 
+    ABOUT_AUTHOR = Author()
+    ABOUT_VERSION = Version()
+    ABOUT_EMAIL = Email()
+    ABOUT_NAME = app_name()
+    ABOUT_MESSAGES = 'AUTHOR\t' + ABOUT_AUTHOR + '\nVERSION\t' \
+                        + ABOUT_VERSION + '\nEMAIL\t' + ABOUT_EMAIL
+
     @staticmethod
     def exit(*args, **kwargs):
         os.system('reset')
@@ -32,8 +43,14 @@ class FileManagerTUI(npyscreen.ActionForm):
         except SystemExit:    # pragma: no cover
             os._exit(0)
 
+    def about_form(self, *args, **kwargs):
+        npyscreen.notify_confirm(self.ABOUT_MESSAGES,
+                                 title='About ' + self.ABOUT_NAME)
+        self.parentApp.setNextForm("MAIN")
+
     def create(self):
-        self.add_handlers({'^Q': FileManagerTUI.exit})
+        self.add_handlers({'^A': self.about_form})
+        self.add_handlers({'^Q': self.exit})
         self.add(npyscreen.Textfield,
                  value='NOTES:',
                  editable=False,
@@ -74,7 +91,6 @@ class FileManagerTUI(npyscreen.ActionForm):
                                            value=self.CURRENT_DIR + '/')
 
     def on_ok(self):
-
         prev_s = '\t' * 4 + '^W to back previous menu'
         quit_s = '\t' * 4 + '^Q to quit'
         treeDir = StowtuiCore.getAllDir(self.dotfiles_directory.value)
