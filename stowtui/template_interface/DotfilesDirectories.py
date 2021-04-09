@@ -39,8 +39,6 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
             os._exit(0)
 
     def create(self):
-        prev_s = '\t' * 4 + '^W to back previous menu'
-        quit_s = '\t' * 4 + '^Q to quit'
 
         self.add_handlers({'^Q': self.exit})
         self.add_handlers({'^W': self.on_cancel})
