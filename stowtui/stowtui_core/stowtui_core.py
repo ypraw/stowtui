@@ -37,15 +37,17 @@ class StowtuiCore:
             (List[str]): [list directory name from target directory]
         """
         get_only_directory: List[str] = [
-            name for name in workdir(path_to_dir) if
-            not name.startswith('.') and pth.isdir(pth.join(path_to_dir, name))
+            name for name in workdir(path_to_dir) if not name.startswith('.')
+            and pth.isdir(pth.join(path_to_dir, name))
         ]
 
         return get_only_directory
 
     @staticmethod
-    def stowExecute(dirs_name: List[str] = [], path_dir: str = None, path_dotfiles: str = None):
-        """Static Method for executing stow function
+    def stowExecuteCreate(dirs_name: List[str] = [],
+                          path_dir: str = None,
+                          path_dotfiles: str = None):
+        """Static Method for executing stow function create
         Args:
             dirs_name (List[str]): List of dotfiles directories
             path_dir ([type]): path to target DIR, ex, $HOME
@@ -60,9 +62,40 @@ class StowtuiCore:
                 # if keyName[0] == 'neofetch':
                 targetExecute = "cd {} && stow -R -t {} {}".format(
                     path_dotfiles, path_dir, keyName)
-                subprocess.run([targetExecute], shell=True,
-                               stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+                subprocess.run([targetExecute],
+                               shell=True,
+                               stderr=subprocess.DEVNULL,
+                               stdout=subprocess.DEVNULL)
             status = (True, 'Successfully restored')
+        except Exception as e:
+            # pass
+            status = (True, 'Errors Detected')
+        return status
+
+    @staticmethod
+    def stowExecuteDelete(dirs_name: List[str] = [],
+                          path_dir: str = None,
+                          path_dotfiles: str = None):
+        """Static Method for executing stow function delete
+        Args:
+            dirs_name (List[str]): List of dotfiles directories
+            path_dir ([type]): path to target DIR, ex, $HOME
+            path_dotfiles: Path of dotfiles config, ex ~/mydotfiles/
+        Returns:
+            [type]: [Executing stow on shell]
+        """
+
+        status: Tuple[bool, str] = (bool, str)
+        try:
+            for keyName in dirs_name:
+                # if keyName[0] == 'neofetch':
+                targetExecute = "cd {} && stow -D -t {} {}".format(
+                    path_dotfiles, path_dir, keyName)
+                subprocess.run([targetExecute],
+                               shell=True,
+                               stderr=subprocess.DEVNULL,
+                               stdout=subprocess.DEVNULL)
+            status = (True, 'Successfully Deleted')
         except Exception as e:
             # pass
             status = (True, 'Errors Detected')
