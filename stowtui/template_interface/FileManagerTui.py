@@ -90,8 +90,10 @@ class FileManagerTUI(npyscreen.ActionForm):
                                            value=self.CURRENT_DIR + '/')
 
     def on_ok(self):
-        prev_s = '\t' * 4 + '^W to back previous menu'
-        quit_s = '\t' * 4 + '^Q to quit'
+        prev_s = '\t' * 2 + '| ^W to back previous menu '
+        quit_s = '\t' * 2 + '| ^Q to quit '
+        mark_s = '\t' * 2 + '| X to mark/unmark |'
+
         treeDir = StowtuiCore.getAllDir(self.dotfiles_directory.value)
         result_args = {
             'dotfiles_path': self.dotfiles_directory.value,
@@ -112,7 +114,8 @@ class FileManagerTUI(npyscreen.ActionForm):
         else:
             self.parentApp.addForm("directorieslist",
                                    DotfilesDirectoriesList,
-                                   name="List of Directories" + quit_s + prev_s,
+                                   name="List of Directories" + quit_s +
+                                   prev_s + mark_s,
                                    **result_args)
             self.parentApp.switchForm("directorieslist")
 
