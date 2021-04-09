@@ -13,12 +13,13 @@ class StowApp(npyscreen.NPSAppManaged):
 
     def onStart(self):
 
-        quit_s = '\t' * 2 + '^Q to quit'
+        quit_s = '\t' * 2 + '| ^Q to Exit the Apps '
+        about_s = '\t' + '| ^A to About Apps |'
         version = Version()
         name = app_name().capitalize()
 
         self.addForm(
             "MAIN",
             FileManagerTUI,
-            name=name + '\t' + version + quit_s,
+            name=name + '\t' + version + quit_s + about_s,
         )
