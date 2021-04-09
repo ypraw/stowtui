@@ -117,11 +117,22 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
                 form_color='CRITICAL')
         else:
             self.res = self.add(npyscreen.TitleMultiSelect,
-                                max_height=-2,
+                                max_height=8,
                                 name="List Directories Name",
                                 values=StowtuiCore.getAllDir(
                                     self.settings['dotfiles_path']),
                                 scroll_exit=True)
+            self.nextrely += 1
+            self.stow_op = self.add(
+                npyscreen.TitleSelectOne,
+                value=[
+                    1,
+                ],
+                name="Choose Operation",
+                values=["DELETE STOW", "CREATE STOW"],
+                scroll_exit=True,
+                width=10,
+            )
 
     def on_cancel(self, *args, **kwargs):
         self.parentApp.switchFormPrevious()
@@ -143,6 +154,7 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
         target_dir = self.settings['target_path']
         dotfiles_dir = self.settings['dotfiles_path']
         selectable_values = self.res.get_selected_objects()
+        operation_values = self.stow_op.value
 
         if (selectable_values is None):
             npyscreen.notify_confirm(
@@ -150,7 +162,7 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
                 title='ERROR Checklist is null',
                 form_color='CRITICAL')
         else:
-            thrd = threading.Thread(target=StowtuiCore.stowExecute,
+            thrd = threading.Thread(target=StowtuiCore.stowExecuteCreate,
                                     kwargs={
                                         'dirs_name': selectable_values,
                                         'path_dir': target_dir,
@@ -158,7 +170,7 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
                                     })
             popup(thrd, 'Restoring dotfiles')
             npyscreen.notify_confirm(
-                'Done restored dotfiles with folder {}'.format(
-                    str(selectable_values)[1:-1]),
+                'Done restored dotfiles with folder {} {}'.format(
+                    str(selectable_values)[1:-1], str(operation_values)),
                 title='Restored Dotfiles')
             self.parentApp.switchFormPrevious()
