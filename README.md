@@ -50,6 +50,10 @@ _stow tui is a Terminal User Interface Program for [GNU STOW](https://www.gnu.or
 
 * [Yunindyo Prabowo](https://github.com/ypraw)
 
+## CONTRIBUTORS
+
+* [mnabila] (https://github.com/mnabila)
+
 ## CONTRIBUTING
 
 * Fork the repo
