@@ -1,9 +1,10 @@
-import npyscreen
 import time
 import os
 import sys
 import threading
 from typing import List, Dict
+
+import npyscreen
 from stowtui.stowtui_core.stowtui_core import StowtuiCore
 
 
@@ -139,14 +140,16 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
 
     def on_ok(self, **kwargs):
 
-        def popup(thrd, title):
+        def popup(thrd, title, form_color):
             """
             Start the thread and display a popup of the plugin being cloned
             until the thread is finished
             """
             thrd.start()
             message_info = "loading..."
-            npyscreen.notify_wait(message_info, title=title)
+            npyscreen.notify_wait(message_info,
+                                  title=title,
+                                  form_color=form_color)
             while thrd.is_alive():
                 time.sleep(1)
             return
@@ -161,16 +164,56 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
                 'Target Configs can not be null, please checklist at least one, or back to previous menu',
                 title='ERROR Checklist is null',
                 form_color='CRITICAL')
+
+        # IF option to CREATE
+        elif (operation_values == [1]):
+            self.op_stow = npyscreen.notify_yes_no(
+                'Do you want to create stow {}'.format(
+                    str(selectable_values)[1:-1]),
+                title='Stow Create Operation',
+                form_color='CAUTION')
+
+            if (self.op_stow == True):
+                thrd = threading.Thread(target=StowtuiCore.stowExecuteCreate,
+                                        kwargs={
+                                            'dirs_name': selectable_values,
+                                            'path_dir': target_dir,
+                                            'path_dotfiles': dotfiles_dir
+                                        })
+                popup(thrd, 'Restoring dotfiles', 'STANDOUT')
+                npyscreen.notify_confirm(
+                    'Done restored dotfiles with folder {}'.format(
+                        str(selectable_values)[1:-1]),
+                    title='Restored Dotfiles')
+
+            else:
+                npyscreen.notify_confirm(
+                    'Canceled Operation, Back to previous form, press OK',
+                    title='Cancel Operation')
+
+        # IF option to DELETE
         else:
-            thrd = threading.Thread(target=StowtuiCore.stowExecuteCreate,
-                                    kwargs={
-                                        'dirs_name': selectable_values,
-                                        'path_dir': target_dir,
-                                        'path_dotfiles': dotfiles_dir
-                                    })
-            popup(thrd, 'Restoring dotfiles')
-            npyscreen.notify_confirm(
-                'Done restored dotfiles with folder {} {}'.format(
-                    str(selectable_values)[1:-1], str(operation_values)),
-                title='Restored Dotfiles')
-            self.parentApp.switchFormPrevious()
+            self.op_stow = npyscreen.notify_yes_no(
+                'Delete operation test {}'.format(str(selectable_values)[1:-1]),
+                title='Confirm Delete STOW CONFIG',
+                form_color='DANGER')
+
+            if (self.op_stow == True):
+                thrd = threading.Thread(target=StowtuiCore.stowExecuteDelete,
+                                        kwargs={
+                                            'dirs_name': selectable_values,
+                                            'path_dir': target_dir,
+                                            'path_dotfiles': dotfiles_dir
+                                        })
+
+                popup(thrd, 'Deleting dotfiles', 'DANGER')
+
+                npyscreen.notify_confirm(
+                    'Done Deleted dotfiles with folder {}'.format(
+                        str(selectable_values)[1:-1]),
+                    title='Deleted Dotfiles')
+
+            else:
+                npyscreen.notify_confirm('Canceled Delete Dotfiles',
+                                         title='False',
+                                         form_color='CONTROL')
