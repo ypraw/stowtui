@@ -8,7 +8,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 setup(
     name="stowtui",
-    version='0.1.12',
+    version='1.0.0',
     # Get the description from second line & remove `*` character
     description="stow tui is a Terminal User Interface Program for GNU STOW",
     long_description=long_description,
@@ -20,7 +20,7 @@ setup(
     license="gpl-3.0",
     install_requires=["npyscreen"],
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable,
         "Intended Audience :: Information Technology",
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
         "Programming Language :: Python :: 3.6",
