@@ -4,3 +4,7 @@ __pycache__
 stowtui_venv
 dist
 stowtui.egg-info
+*.tar.xz
+aur/pkg/
+aur/src/
+aur/stowtui-git/

@@ -29,14 +29,30 @@ _stow tui is a Terminal User Interface Program for [GNU STOW](https://www.gnu.or
     source ./install.sh
     ```
 
-* or via pip
+* install from pypi.org (using pip)
     ```bash
     pip install stowtui
+    ```
+
+* install from AUR for archlinux users (using paru)
+    ```bash
+    paru -S stowtui-git
+    ```
+
+* install from PKGBUILD for archlinux users (using makepkg)
+    ```bash
+    git clone https://github.com/ypraw/stowtui.git
+    cd aur
+    makepkg -si
     ```
 
 ## AUTHOR
 
 * [Yunindyo Prabowo](https://github.com/ypraw)
+
+## CONTRIBUTORS
+
+* [mnabila] (https://github.com/mnabila)
 
 ## CONTRIBUTING
 
