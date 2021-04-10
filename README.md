@@ -49,9 +49,10 @@ _stow tui is a Terminal User Interface Program for [GNU STOW](https://www.gnu.or
 ## TO DO
 
 * [x] Restow Packages
-* [ ] Delete a package from the target tree
+* [x] Delete a package from the target tree
 * [ ] sudo action if any special access to root tree
 * [ ] complete manual instructions
+
 ## LICENSE
 
 * [npyscreen](https://github.com/npcole/npyscreen) Copyright (c) 2004--2009, Nicholas P. S. Cole (n@npcole.com)
