@@ -7,12 +7,10 @@
 <a href='#python'><img src="https://img.shields.io/pypi/pyversions/stowtui?color=brightgreen&label=Python%20Version&logo=python&logoColor=yellow&style=for-the-badge">
 </p>
 
-
 ## DESCRIPTION
 
 _stow tui is a Terminal User Interface Program for [GNU STOW](https://www.gnu.org/software/stow/)_
 
-> _**this is beta versions, with basic function of stow (currently added Restow Packages), updates and other features will continue to be provided**_
 ## HOW TO INSTALL
 
 * if you want to edit or modify source code
@@ -30,16 +28,19 @@ _stow tui is a Terminal User Interface Program for [GNU STOW](https://www.gnu.or
     ```
 
 * install from pypi.org (using pip)
+
     ```bash
     pip install stowtui
     ```
 
 * install from AUR for archlinux users (using paru)
+
     ```bash
     paru -S stowtui-git
     ```
 
 * install from PKGBUILD for archlinux users (using makepkg)
+
     ```bash
     git clone https://github.com/ypraw/stowtui.git
     cd aur
@@ -52,7 +53,9 @@ _stow tui is a Terminal User Interface Program for [GNU STOW](https://www.gnu.or
 
 ## CONTRIBUTORS
 
-* [mnabila](https://github.com/mnabila)
+<a href = "https://github.com/ypraw/stowtui/graphs/contributors">
+  <img src = "https://contrib.rocks/image?repo=ypraw/stowtui"/>
+</a>
 
 ## CONTRIBUTING
 
