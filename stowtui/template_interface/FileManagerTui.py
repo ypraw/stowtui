@@ -1,10 +1,15 @@
-import npyscreen
 import os
 import sys
 import time
 from pathlib import Path
+from os.path import isdir
+
+import npyscreen
+
 from stowtui.template_interface.DotfilesDirectories import DotfilesDirectoriesList
 from stowtui.stowtui_core.stowtui_core import StowtuiCore
+from stowtui.template_interface.help_ui import HelpForm
+
 from stowtui.helpers.meta import Version
 from stowtui.helpers.meta import Author
 from stowtui.helpers.meta import Email
@@ -47,9 +52,10 @@ class FileManagerTUI(npyscreen.ActionForm):
                                  title='About ' + self.ABOUT_NAME)
         self.parentApp.setNextForm("MAIN")
 
-    def create(self):
+    def create(self, *args, **kwargs):
         self.add_handlers({'^A': self.about_form})
         self.add_handlers({'^Q': self.exit})
+        self.add_handlers({'^S': self.help_form})
         self.add(npyscreen.Textfield,
                  value='NOTES:',
                  editable=False,
@@ -89,25 +95,46 @@ class FileManagerTUI(npyscreen.ActionForm):
                                            Label=True,
                                            value=self.CURRENT_DIR + '/')
 
-    def on_ok(self):
-        prev_s = '\t' * 2 + '| ^W to back previous menu '
+    def on_ok(self, *args, **kwargs):
+        prev_s = '\t' * 2 + '| ^T to back previous menu '
         quit_s = '\t' * 2 + '| ^Q to quit '
-        mark_s = '\t' * 2 + '| X to mark/unmark |'
+        mark_s = '\t' * 2 + '| ^S to HELP |'
 
-        treeDir = StowtuiCore.getAllDir(self.dotfiles_directory.value)
-        result_args = {
+        self.result_args = {
             'dotfiles_path': self.dotfiles_directory.value,
             'target_path': self.target_directory.value
         }
 
-        if self.dotfiles_directory.value is None:
-            npyscreen.notify('Dotfiles Directory Cannot Be NUll', title='Error')
-            time.sleep(1)
+        if not self.result_args.get('dotfiles_path'):
+            npyscreen.notify_confirm('Dotfiles Directory Cannot Be NUll',
+                                     title='Error',
+                                     form_color='DANGER')
             self.parentApp.setNextForm("MAIN")
 
-        elif not treeDir:
+        elif not isdir(self.result_args.get('dotfiles_path')):
+            npyscreen.notify_confirm('Dotfiles path not found',
+                                     title='Error',
+                                     form_color='DANGER')
+
+            self.parentApp.setNextForm("MAIN")
+
+        elif not self.result_args.get('target_path'):
+            npyscreen.notify_confirm('Target Directory Cannot Be Null,',
+                                     title='Error',
+                                     form_color='DANGER')
+            self.parentApp.setNextForm("MAIN")
+
+        elif not isdir(self.result_args.get('target_path')):
+            npyscreen.notify_confirm('Target Directory Not Found',
+                                     title='Error',
+                                     form_color='DANGER')
+
+            self.parentApp.setNextForm("MAIN")
+
+        elif not StowtuiCore.getAllDir(self.dotfiles_directory.value):
             npyscreen.notify_confirm('Directories Child Can not be Empty',
-                                     title='Dotfiles Empty',
+                                     title='Dotfiles Empty {}'.format(
+                                         self.result_args['target_path']),
                                      form_color='DANGER')
 
             self.parentApp.setNextForm("MAIN")
@@ -116,8 +143,16 @@ class FileManagerTUI(npyscreen.ActionForm):
                                    DotfilesDirectoriesList,
                                    name="List of Directories" + quit_s +
                                    prev_s + mark_s,
-                                   **result_args)
+                                   **self.result_args)
             self.parentApp.switchForm("directorieslist")
 
     def on_cancel(self):
         self.exit()
+
+    def help_form(self, *args, **keywords):
+        """ Toggles to help """
+        self.parentApp.addForm('HELP',
+                               HelpForm,
+                               name='Help\t\t\t\t\t\t\t\t^T to toggle previous',
+                               color='CAUTION')
+        self.parentApp.switchForm('HELP')
