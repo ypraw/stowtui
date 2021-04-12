@@ -6,6 +6,7 @@ from typing import List, Dict
 
 import npyscreen
 from stowtui.stowtui_core.stowtui_core import StowtuiCore
+from stowtui.template_interface.help_ui import HelpForm
 
 
 class DotfilesDirectoriesList(npyscreen.ActionForm):
@@ -42,7 +43,8 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
     def create(self):
 
         self.add_handlers({'^Q': self.exit})
-        self.add_handlers({'^W': self.on_cancel})
+        self.add_handlers({'^T': self.on_cancel})
+        self.add_handlers({'^S': self.help_form})
 
         self.add(npyscreen.Textfield,
                  value='NOTES:',
@@ -80,7 +82,7 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
                  color='CONTROL')
 
         self.add(npyscreen.Textfield,
-                 value='by pressing button cancel or use shortcut ^W',
+                 value='by pressing button cancel or use shortcut ^T',
                  editable=False,
                  color='CONTROL')
 
@@ -217,3 +219,11 @@ class DotfilesDirectoriesList(npyscreen.ActionForm):
                 npyscreen.notify_confirm('Canceled Delete Dotfiles',
                                          title='False',
                                          form_color='CONTROL')
+
+    def help_form(self, *args, **keywords):
+        """ Toggles to help """
+        self.parentApp.addForm('HELP',
+                               HelpForm,
+                               name='Help\t\t\t\t\t\t\t\t^T to toggle previous',
+                               color='CAUTION')
+        self.parentApp.switchForm('HELP')
