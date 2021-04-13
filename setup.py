@@ -28,6 +28,6 @@ setup(
         "Programming Language :: Python :: 3.8",
     ],
     packages=find_packages(),
-    entry_points={"console_scripts": ["stowtui=stowtui.__main__:main"]},
+    scripts=['/bin/stowtui'],
     keywords="stowtui stow dotfiles tui",
 )
